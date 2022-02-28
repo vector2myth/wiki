@@ -1,15 +1,24 @@
 package com.wug.wiki.controller;
 
+import com.wug.wiki.domain.Test;
+import com.wug.wiki.service.TestService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 public class TestController {
 
     @Value("${test.hello}")
     private String testhelo;
+
+    @Resource
+    private TestService testService;
 
     /*
     * GET,POST,PUT,DELETE   四种请求方式
@@ -25,5 +34,10 @@ public class TestController {
     @PostMapping("/hello")
     public String helloPost(String name){
         return "Hello,POST,"+name;
+    }
+
+    @GetMapping("/test/list")
+    public List<Test> list(){
+        return testService.list();
     }
 }
